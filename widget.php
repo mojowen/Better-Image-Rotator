@@ -1,5 +1,8 @@
 <?php
-add_action('widgets_init', create_function('', 'return register_widget("better_image_rotator");'));
+add_action('widgets_init', 'init_better_widget_admin');
+function init_better_widget_admin() {
+	register_widget("better_image_rotator");
+}
 
 class better_image_rotator extends WP_Widget
 {
@@ -11,7 +14,7 @@ class better_image_rotator extends WP_Widget
 
   function form($instance)
   {
-	$default = array( 'images'=>array(), 'display' => 4, 'speed' => 5000, 'rotate' => true, 'page' => true );
+	wp_enqueue_script( "better_img_rotator_admin",better_img_rotator_base.'better_image_rotator_admin.js',array("jquery"),1,true );
 
 	$instance = !isset($instance['images']) ? $default : $instance;
 	if( count($instance['images']) < 1 ) {
