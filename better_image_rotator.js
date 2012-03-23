@@ -10,7 +10,8 @@ jQuery(document).ready(function($) {
 		show = parseInt(data.display),
 		interval = data.speed,
 		rotate = data.rotate;
-		page = data.page;
+		page = data.page,
+		ready = true;
 
 	// Setting up the environment
 	$this.html('<div class="inside"></div>');
@@ -35,20 +36,22 @@ jQuery(document).ready(function($) {
 	if( typeof interval != 'undefined' && interval > 0 && rotate ) setInterval(function() { slide(-1) }, interval);
 
 	function slide(dir) {
-		if( dir > 0 ) {
-			position = position + show + 1 > size ? -show : position + 1;
-			$('.better_rotator_item:first',$this).fadeOut('fast',function(){
-				$('.better_rotator_item:hidden').remove();
-				$inside.append($images[position+show]).find('.better_rotator_item').fadeIn();
-			});
-		} else {
-			position = position - 1 < 0 ? size : position - 1;
-			$('.better_rotator_item:last',$this).fadeOut('fast',function(){
-				$('.better_rotator_item:hidden').remove();
-				$inside.prepend($images[position]).find('.better_rotator_item').fadeIn();
-			});
+		if( ready ) {
+			ready = false;
+			if( dir > 0 ) {
+				position = position + show + 1 > size ? -show : position + 1;
+				$('.better_rotator_item:first',$this).fadeOut('fast',function(){
+					$('.better_rotator_item:hidden').remove();
+					$inside.append($images[position+show]).find('.better_rotator_item').fadeIn(function() { ready = true; });
+				});
+			} else {
+				position = position - 1 < 0 ? size : position - 1;
+				$('.better_rotator_item:last',$this).fadeOut('fast',function(){
+					$('.better_rotator_item:hidden').remove();
+					$inside.prepend($images[position]).find('.better_rotator_item').fadeIn(function() { ready = true; });
+				});
+			}
 		}
-
 	}
 
 });
