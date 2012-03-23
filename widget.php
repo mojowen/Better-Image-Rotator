@@ -65,7 +65,13 @@ class better_image_rotator extends WP_Widget
   function update($new_instance, $old_instance)
   {
 	$instance = $old_instance;
+	$instance['rotate'] = (bool)strip_tags($new_instance['rotate']);
+	$instance['speed'] = strip_tags($new_instance['speed']);
+	$instance['display'] = strip_tags($new_instance['display']);
+	$instance['page'] = strip_tags($new_instance['page']);
 
+	$instance['images'] = $new_instance['images'];
+	
 
     return $instance;
   }
@@ -74,6 +80,12 @@ class better_image_rotator extends WP_Widget
   {
 	extract($args);
 	
+	$vars = array(
+		'speed' => esc_attr($instance['speed']),
+		'page' => esc_attr($instance['page']),
+		'display' => esc_attr($instance['display']),
+		'rotate' => esc_attr($instance['rotate'])
+	);
 	echo $before_widget; 
 	// Before the widget ?>
 
