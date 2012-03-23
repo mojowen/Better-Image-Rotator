@@ -7,10 +7,10 @@ jQuery(document).ready(function($) {
 		$images = $('.better_rotator_item', $this).clone().hide(),
 		size = $images.length-1,
 		position = 0,
-		show = data.display,
+		show = parseInt(data.display),
 		interval = data.speed,
-		rotate = data.rotate == 'on',
-		page = data.page == 'on';
+		rotate = data.rotate;
+		page = data.page;
 
 	// Setting up the environment
 	$this.html('<div class="inside"></div>');
@@ -21,36 +21,34 @@ jQuery(document).ready(function($) {
 	}
 	//Appending the first images we're going to show
 	for (var i=position; i < show+position; i++) {
-		$inside.append($images[i]).find('img').show();
+		$inside.append($images[i]).find('.better_rotator_item').fadeIn();
 	};
 
 	//The bindings
-	$('.controls').click(function(){
+	$('.controls').live('click',function(e){
 		if( $(this).hasClass('after') ) {
 			slide(-1);
 		} else {
-			slide(+1);
+			slide(1);
 		}
 	});
-	if( typeof interval != 'undefined' && interval > 0 && rotate ) {
-		setInterval(function() { slide(-1) }, interval);
-	}
+	if( typeof interval != 'undefined' && interval > 0 && rotate ) setInterval(function() { slide(-1) }, interval);
+
 	function slide(dir) {
-		$('img:hidden').remove();
 		if( dir > 0 ) {
-			position = position + size + 1 > size ? -size : position + 1;
-			$('img:first',$this).fadeOut('fast',function(){
-				$(this).remove();
-				$inside.append($images[position+size]).find('img').fadeIn();
+			position = position + show + 1 > size ? -show : position + 1;
+			$('.better_rotator_item:first',$this).fadeOut('fast',function(){
+				$('.better_rotator_item:hidden').remove();
+				$inside.append($images[position+show]).find('.better_rotator_item').fadeIn();
 			});
 		} else {
 			position = position - 1 < 0 ? size : position - 1;
-			$('img:last',$this).fadeOut('fast',function(){
-				$(this).remove(); 
-				$inside.prepend($images[position]).find('img').fadeIn();
+			$('.better_rotator_item:last',$this).fadeOut('fast',function(){
+				$('.better_rotator_item:hidden').remove();
+				$inside.prepend($images[position]).find('.better_rotator_item').fadeIn();
 			});
-			
 		}
+
 	}
 
 });
