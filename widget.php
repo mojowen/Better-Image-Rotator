@@ -16,11 +16,12 @@ class better_image_rotator extends WP_Widget
   {
 	wp_enqueue_script( "better_img_rotator_admin",better_img_rotator_base.'better_image_rotator_admin.js',array("jquery"),1,true );
 
-	$instance = !isset($instance['images']) ? $default : $instance;
-	if( count($instance['images']) < 1 ) {
-		array_push($instance['images'], array( 'img'=>'','url'=>'') );
-	}
+	$instance['images'] = !isset($instance['images']) ? array('') : $instance['images'];
+	$instance['urls'] = !isset($instance['urls']) ? array('') : $instance['urls'];
 
+	$instance['images'] = is_array($instance['images']) ? $instance['images'] : array('');
+	$instance['urls'] = is_array($instance['urls']) ? $instance['urls'] : array('');
+	$urls = isset($instance['urls']) ? $instance['urls'] : array();
 	$rotate = isset($instance['rotate']) ? $instance['rotate'] : true;
 	$speed = isset($instance['speed']) ? $instance['speed'] : 500;
 	$display = isset($instance['display']) ? $instance['display'] : 4;
@@ -41,11 +42,11 @@ class better_image_rotator extends WP_Widget
 	</label></p>
 	<?php
 	echo '<h3>Images</h3><ul id="sortable">';
-	$i = 1;
+	$i = 0;
 	foreach( $instance['images'] as $o ):
 		echo '<li>';
-		echo '<h2 style="display:inline;">&#8616;</h2> <input value="'.$o['img'].'" class="upload_image" type="text" name="my_theme_options[social_icons]['.$i.'][img]" value="" /><input class="upload_image_button" type="button" value="Upload Image" />';
-		echo ' Link URL: <input type="text" class="small-text" name="my_theme_options[social_icons]['.$i.'][url]" value="'.$o['url'].'">';
+		echo '<input value="'.$o.'" class="upload_image" id="'.$this->get_field_id('images').'[]" type="text" name="'.$this->get_field_name('images').'[]" value="'.$o.'" /><br />';
+		echo ' Link URL: <input type="text" class="small-text" id="'.$this->get_field_id('urls').'[]" name="'.$this->get_field_name('urls').'[]" value="'.$url.'">';
 
 		echo ' <a href="#" class="delete">x</a>';
 
