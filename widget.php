@@ -26,6 +26,7 @@ class better_image_rotator extends WP_Widget
 	$speed = isset($instance['speed']) ? $instance['speed'] : 500;
 	$display = isset($instance['display']) ? $instance['display'] : 4;
 	$page = isset($instance['page']) ? $instance['page'] : true;
+
 	?>
 	<h3>Options</h3>
 	<p><label for="<?php echo $this->get_field_id('rotate'); ?>"> <?php echo __('Images should rotate?') ?>
@@ -45,6 +46,7 @@ class better_image_rotator extends WP_Widget
 	$i = 0;
 	foreach( $instance['images'] as $o ):
 		echo '<li>';
+		$url = isset($urls[$i]) ? $urls[$i] : '';
 		echo '<input value="'.$o.'" class="upload_image" id="'.$this->get_field_id('images').'[]" type="text" name="'.$this->get_field_name('images').'[]" value="'.$o.'" /><br />';
 		echo ' Link URL: <input type="text" class="small-text" id="'.$this->get_field_id('urls').'[]" name="'.$this->get_field_name('urls').'[]" value="'.$url.'">';
 
