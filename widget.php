@@ -78,6 +78,7 @@ class better_image_rotator extends WP_Widget
 
   function widget($args, $instance)
   {
+	wp_enqueue_script( 'BetterImageRotator', better_img_rotator_base.'better_image_rotator.js',array( 'jquery' ), '1.0', true );
 	extract($args);
 	
 	$vars = array(
