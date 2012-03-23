@@ -89,7 +89,7 @@ class better_image_rotator extends WP_Widget
 	);
 	echo $before_widget; 
 	// Before the widget ?>
-		<style type="text/css">div.better_image_rotator img.better_rotator_img { max-height: 80px; }div.better_image_rotator .controls { width: 20px; height: 80px; border: 2px solid #999;}div.better_image_rotator div { float: left; clear: none; }</style>
+		<style type="text/css">div.better_image_rotator a img { border: 0; }div.better_image_rotator .better_rotator_item {display: none;} div.better_image_rotator .inside { width: 90%; } div.better_image_rotator img.better_rotator_img { max-height: 80px; }div.better_image_rotator .controls:hover { opacity: 1; }div.better_image_rotator .controls { width: 4%; max-width: 10px; margin-left: -4%; height: 80px; border: 2px solid #999; cursor: pointer; opacity: 0.3;}div.better_image_rotator div { float: left; clear: none; }div.better_image_rotator .after { margin: 0 -4% 0 0;}</style>
 		<div class="better_image_rotator" data='<?php echo json_encode($vars);?>'>
 			<?php 
 				$i=0; 
@@ -101,7 +101,7 @@ class better_image_rotator extends WP_Widget
 						<?php $linked = ''; ?>
 					<?php endif;?>
 
-					<img src="<?php echo esc_attr($img); ?>" class="better_rotator_img <?php echo $linked; ?>">
+					<img src="<?php echo esc_attr($img); ?>" class="better_rotator_img <?php echo $linked; ?>"> 
 
 					<?php if( isset($instance['urls'][$i]) && !empty($instance['urls'][$i]) ): ?>
 						</a>
