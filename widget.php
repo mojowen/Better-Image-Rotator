@@ -71,6 +71,7 @@ class better_image_rotator extends WP_Widget
 	$instance['page'] = strip_tags($new_instance['page']);
 
 	$instance['images'] = $new_instance['images'];
+	$instance['urls'] = $new_instance['urls'];
 	
 
     return $instance;
@@ -80,7 +81,6 @@ class better_image_rotator extends WP_Widget
   {
 	wp_enqueue_script( 'BetterImageRotator', better_img_rotator_base.'better_image_rotator.js',array( 'jquery' ), '1.0', true );
 	extract($args);
-	
 	$vars = array(
 		'speed' => esc_attr($instance['speed']),
 		'page' => esc_attr($instance['page']),
@@ -89,19 +89,23 @@ class better_image_rotator extends WP_Widget
 	);
 	echo $before_widget; 
 	// Before the widget ?>
-
 		<style type="text/css">div.better_image_rotator img.better_rotator_img { max-height: 80px; }div.better_image_rotator .controls { width: 20px; height: 80px; border: 2px solid #999;}div.better_image_rotator div { float: left; clear: none; }</style>
 		<div class="better_image_rotator" data='<?php echo json_encode($vars);?>'>
 			<?php 
 				$i=0; 
+				foreach( $instance['images'] as $img): 
 					$linked = 'better_rotator_item';
+			?>
 					<?php if( isset($instance['urls'][$i]) && !empty($instance['urls'][$i]) ): ?>
 						<a href="<?php echo esc_attr($instance['urls'][$i]);?>" target="_blank" class="better_rotator_item better_rotator_link">
 						<?php $linked = ''; ?>
 					<?php endif;?>
+
 					<img src="<?php echo esc_attr($img); ?>" class="better_rotator_img <?php echo $linked; ?>">
+
 					<?php if( isset($instance['urls'][$i]) && !empty($instance['urls'][$i]) ): ?>
 						</a>
+					<?php endif; ?>
 			<?php 
 				$i++;
 				endforeach; 
