@@ -30,9 +30,9 @@ class better_image_rotator extends WP_Widget
 	?>
 	<h3>Options</h3>
 	<p><label for="<?php echo $this->get_field_id('rotate'); ?>"> <?php echo __('Images should rotate?') ?>
-		 <input id="<?php echo $this->get_field_id('rotate'); ?>" name="<?php echo $this->get_field_name('rotate'); ?>" type="checkbox" <?php if( $rotate ) echo 'checked="checked"';?>>
+		 <input id="<?php echo $this->get_field_id('rotate'); ?>" name="<?php echo $this->get_field_name('rotate'); ?>" class="show_rotate" type="checkbox" <?php if( $rotate ) echo 'checked="checked"';?>>
 	</label></p>
-	<p><label for="<?php echo $this->get_field_id('speed'); ?>" <?php if( !$rotate ) echo 'style="display: none;" ' ?>> <?php echo __('Rotation speed') ?>
+	<p><label class="rotate_speed" for="<?php echo $this->get_field_id('speed'); ?>" <?php if( !$rotate ) echo 'style="display: none;" ' ?>> <?php echo __('Rotation speed') ?>
 		<input id="<?php echo $this->get_field_id('speed'); ?>" name="<?php echo $this->get_field_name('speed'); ?>" type="text" value="<?php echo $speed;?>">
 	</label></p>
 	<label for="<?php echo $this->get_field_id('display'); ?>"> <?php echo __('How many images to display') ?>

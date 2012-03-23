@@ -18,5 +18,10 @@ jQuery(document).ready( function($) {
 		$('.preview',elem).remove();
 		$(elem).insertBefore( $(this).parents('li') );
 	});
+	$('input[type=checkbox].show_rotate').live('click',function() { 
+		var $this = $(this);
+		if( $this.is(':checked') ) $this.parents('form').find('.rotate_speed').show();
+		else $this.parents('form').find('.rotate_speed').hide();
+	});
 
 });
