@@ -25,6 +25,7 @@ class better_image_rotator extends WP_Widget
 	$rotate = isset($instance['rotate']) ? $instance['rotate'] : true;
 	$speed = isset($instance['speed']) ? $instance['speed'] : 500;
 	$display = isset($instance['display']) ? $instance['display'] : 4;
+	$height = isset($instance['height']) ? $instance['height'] : 80;
 	$page = isset($instance['page']) ? $instance['page'] : true;
 
 	?>
@@ -40,6 +41,9 @@ class better_image_rotator extends WP_Widget
 	</label></p>
 	<p><label for="<?php echo $this->get_field_id('page'); ?>"> <?php echo __('Should you be able to click to scroll through the images?') ?>
 		 <input id="<?php echo $this->get_field_id('page'); ?>" name="<?php echo $this->get_field_name('page'); ?>" type="checkbox" <?php if( $page ) echo 'checked="checked"';?>>
+	</label></p>
+	<p><label for="<?php echo $this->get_field_id('height'); ?>"> <?php echo __('Height of the Images in the Slider') ?>
+		 <input id="<?php echo $this->get_field_id('height'); ?>" name="<?php echo $this->get_field_name('height'); ?>" type="text" value="<?php echo $display;?>">
 	</label></p>
 	<?php
 	echo '<h3>Images</h3><ul id="sortable">';
@@ -67,6 +71,7 @@ class better_image_rotator extends WP_Widget
 	$instance = $old_instance;
 	$instance['rotate'] = (bool)strip_tags($new_instance['rotate']);
 	$instance['speed'] = strip_tags($new_instance['speed']);
+	$instance['height'] = strip_tags($new_instance['height']);
 	$instance['display'] = strip_tags($new_instance['display']);
 	$instance['page'] = strip_tags($new_instance['page']);
 
@@ -81,6 +86,7 @@ class better_image_rotator extends WP_Widget
   {
 	wp_enqueue_script( 'BetterImageRotator', better_img_rotator_base.'better_image_rotator.js',array( 'jquery' ), '1.0', true );
 	extract($args);
+	$height = isset($instance['height']) ? esc_attr($instance['height']) : 80;
 	$vars = array(
 		'speed' => esc_attr($instance['speed']),
 		'page' => esc_attr($instance['page']),
@@ -89,7 +95,7 @@ class better_image_rotator extends WP_Widget
 	);
 	echo $before_widget; 
 	// Before the widget ?>
-		<style type="text/css">div.better_image_rotator a img { border: 0; }div.better_image_rotator .better_rotator_item {display: none;} div.better_image_rotator .inside { width: 90%; } div.better_image_rotator img.better_rotator_img { max-height: 80px; }div.better_image_rotator .controls:hover { opacity: 1; }div.better_image_rotator .controls { width: 4%; max-width: 10px; margin-left: -4%; height: 80px; border: 2px solid #999; cursor: pointer; opacity: 0.3;}div.better_image_rotator div { float: left; clear: none; }div.better_image_rotator .after { margin: 0 -4% 0 0;}</style>
+		<style type="text/css">div.better_image_rotator a img { border: 0; }div.better_image_rotator .better_rotator_item {display: none;} div.better_image_rotator .inside { width: 90%; height: <?php echo $height;?>px; } div.better_image_rotator img.better_rotator_img { max-height: <?php echo $height;?>px; margin: 0 10px; }div.better_image_rotator .controls:hover { opacity: 1; }div.better_image_rotator .controls { width: 4%; max-width: 10px; margin-left: -4%; height: 80px; border: 2px solid #999; cursor: pointer; opacity: 0.3;}div.better_image_rotator div { float: left; clear: none; overflow: hidden; }div.better_image_rotator .after { margin: 0 -4% 0 0;}</style>
 		<div class="better_image_rotator" data='<?php echo json_encode($vars);?>'>
 			<?php 
 				$i=0; 
