@@ -2,7 +2,7 @@
 /*
 Plugin Name: Better Image Rotator Widget
 Plugin URI: https://github.com/mojowen/Better-Image-Rotator
-Description: SalsaPress connects WordPress to Salsa
+Description: Better Image Rotator thing
 Author: Scott Duncombe
 Version: 0.5
 Author URI: http://scottduncombe.com/
