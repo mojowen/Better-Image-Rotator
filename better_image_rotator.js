@@ -3,13 +3,13 @@ jQuery(document).ready(function($) {
 
 	// The options and basics
 	var $this = $('.better_image_rotator'),
-		data = JSON.parse($this.attr('data'))
+		data = JSON.parse($this.attr('data')),
 		$images = $('.better_rotator_item', $this).clone().hide(),
 		size = $images.length-1,
 		position = 0,
 		show = parseInt(data.display),
 		interval = data.speed,
-		rotate = data.rotate;
+		rotate = data.rotate,
 		page = data.page,
 		ready = true;
 
